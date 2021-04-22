@@ -1,0 +1,45 @@
+
+	CREATE TABLE auth_role (
+	  auth_role_id int(11) NOT NULL AUTO_INCREMENT,
+	  role_name varchar(255) DEFAULT NULL,
+	  role_desc varchar(255) DEFAULT NULL,
+	  PRIMARY KEY (auth_role_id)
+	);
+	INSERT INTO auth_role VALUES (1,'SUPER_USER','');
+	INSERT INTO auth_role VALUES (2,'ADMIN_USER','');
+
+	CREATE TABLE auth_user (
+	  auth_user_id int(11) NOT NULL AUTO_INCREMENT,
+	  first_name varchar(255) NOT NULL,
+	  last_name varchar(255) NOT NULL,
+	  email varchar(255) NOT NULL,
+	  password varchar(255) NOT NULL,
+	  status varchar(255),
+	  PRIMARY KEY (auth_user_id)
+	);
+
+	CREATE TABLE auth_user_role (
+	  auth_user_id int(11) NOT NULL,
+	  auth_role_id int(11) NOT NULL,
+	  PRIMARY KEY (auth_user_id,auth_role_id),
+	  KEY FK_user_role (auth_role_id),
+	  CONSTRAINT FK_auth_user FOREIGN KEY (auth_user_id) REFERENCES auth_user (auth_user_id),
+	  CONSTRAINT FK_auth_user_role FOREIGN KEY (auth_role_id) REFERENCES auth_role (auth_role_id)
+	) ;
+
+	insert into auth_user (auth_user_id,first_name,last_name,email,password,status) values (1,'Rizky','Prabowo','admin@gmail.com','abc123','VERIFIED');
+	insert into auth_user_role (auth_user_id, auth_role_id) values ('1','1');
+	insert into auth_user_role (auth_user_id, auth_role_id) values ('1','2');
+
+	CREATE TABLE `data_order` (
+	  `id` int NOT NULL AUTO_INCREMENT,
+	  `nama_barang` varchar(45) DEFAULT NULL,
+	  `keterangan_pemesanan` varchar(45) DEFAULT NULL,
+	  `jumlah_yang_dipesan` int DEFAULT NULL,
+	  `nama_pemesan` varchar(100) DEFAULT NULL,
+	  `alamat_pemesan` varchar(250) DEFAULT NULL,
+	  `tanggal_pemesanan` date DEFAULT NULL,
+	  PRIMARY KEY (`id`)
+	);
+
+	insert into order_barang (nama_barang, keterangan_pemesanan, jumlah_yang_dipesan, nama_pemesan, alamat_pemesan, tanggal_pemesanan) values ('Sepatu', 'sedang di kemas', '1', 'Yuli', 'Bandung', '2021-04-21');
